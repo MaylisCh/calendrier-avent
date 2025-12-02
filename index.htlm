@@ -128,12 +128,25 @@
     <script>
         /* --- 2. LES DONNÉES (C'est ici que tu modifies tes surprises !) --- */
         const surprises = [
-            { day: 1, type: 'text', content: "Bienvenue dans ce calendrier ! 🎅" },
-            { day: 2, type: 'image', content: "https://images.unsplash.com/photo-1543589077-47d81606c1bf?w=500", text: "Un petit chocolat chaud ?" },
-            { day: 3, type: 'text', content: "Citation du jour : Le bonheur est la seule chose qui se double si on le partage." },
-            { day: 4, type: 'image', content: "https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=500", text: "Souvenir de l'an dernier..." },
-            // ... Ajoute les jours jusqu'à 24 ici
-        ];
+    { 
+        day: 1, 
+        type: 'text', 
+        content: "Bienvenue !" 
+    },
+    { 
+        day: 2, 
+        type: 'image', 
+        content: "images/jour2.jpg",  // <--- C'est ici que ça change !
+        text: "Notre voyage à la montagne" 
+    },
+    { 
+        day: 3, 
+        type: 'image', 
+        content: "images/gateau.jpg", // Le nom exact de ton fichier
+        text: "Miam !" 
+    },
+    // ... suite
+];
 
         // Remplissage automatique pour l'exemple (Jours 5 à 24)
         for (let i = 5; i <= 24; i++) {
@@ -202,4 +215,5 @@
         }
     </script>
 </body>
+
 </html>
