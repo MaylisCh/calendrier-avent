@@ -91,7 +91,7 @@
 </head>
 <body>
 
-    <h1>🎄 Calendrier de l'Avent 🎄</h1>
+    <h1>🎄 Calendrier de l'Avent de Doudou 🎄</h1>
     
     <div class="calendar-grid" id="grid"></div>
 
@@ -109,26 +109,110 @@
             { 
                 day: 1, 
                 image: "1.jpg", 
-                text: "Bienvenue ! Voici notre premier souvenir." 
+                text: "Moi aussi je t'ai fait un calendrier !" 
             },
             { 
                 day: 2, 
                 image: "2.jpg", 
-                text: "Il faisait froid ce jour-là, non ?" 
+                text: "Ca sera pas des bonbons mais des petites photos mimis de nous hihihi" 
             },
             { 
                 day: 3, 
-                image: "2.jpg",
-                text: "Une petite citation pour te donner le sourire." 
+                image: "3.jpg",
+                text: "Avec nounette aussi !" 
             },
-            // Copie-colle les blocs ci-dessus pour ajouter les jours suivants...
+             { 
+                day: 4, 
+                image: "4.jpg", 
+                text: "Oh ! un bébé doudou au volant..." 
+            },
+             { 
+                day: 5, 
+                image: "5.jpg", 
+                text: "Accroche toi mon doudou c'est bientôt le WE !" 
+            },
+             { 
+                day: 6, 
+                image: "6.jpg", 
+                text: "Bon courage pour ta pale, je te fais plein de gros bisous de courage à distance." 
+            }, 
+            { 
+                day: 7, 
+                image: "7.jpg", 
+                text: "Youhou enfin dimanche : au dodo !" 
+            },
+             { 
+                day: 8, 
+                image: "8.jpg", 
+                text: "Nouvelle photo mimi de nous tous pour commencer la semaine." 
+            }, { 
+                day: 9, 
+                image: "9.jpg", 
+                text: "Vivement l'été jai trop froid et je suis trop fatiguée moi." 
+            }, { 
+                day: 10, 
+                image: "10.jpg", 
+                text: "Un peu de bricolage aujourd'hui, au final on avait bien logé ces petits poissons !" 
+            }, { 
+                day: 11, 
+                image: "11.jpg", 
+                text: "Zoups on glisse vers le we ! Amuse toi bien au foot cet aprem !" 
+            }, { 
+                day: 12, 
+                image: "12.jpg", 
+                text: "Un peu de sport avec maman aujourd'hui (enfin c'est du vélo mais faut lui dire que c'est du sport hein)." 
+            }, { 
+                day: 13, 
+                image: "13.jpg", 
+                text: "Je t'aime très fort mon bébé Doudou ! Bon courage pour aujourd'hui <3" 
+            }, { 
+                day: 14, 
+                image: "14.jpg", 
+                text: "Aaah encore un dimanche pour dormir !" 
+            }, { 
+                day: 15, 
+                image: "15.jpg", 
+                text: "Trop pipou le bébé chaton !" 
+            }, { 
+                day: 16, 
+                image: "16.jpg", 
+                text: "J'espère qu'il fait aussi beau dehors que sur la photo aujourd'hui." 
+            }, { 
+                day: 17, 
+                image: "17.jpg", 
+                text: "Trop des stars de la street eheh !" 
+            }, { 
+                day: 18, 
+                image: "18.jpg", 
+                text: "Vivement les vacances pour aller jouer dans la cambrousse" 
+            }, { 
+                day: 19, 
+                image: "19.jpg", 
+                text: "Courage ce soir tu auras les doigts de pieds en évantail !" 
+            }, { 
+                day: 20, 
+                image: "20.jpg", 
+                text: "C'est partiiiiii ! On est en vacances !!!" 
+            }, { 
+                day: 21, 
+                image: "21.jpg", 
+                text: "On était tous choupis dans la montagne" 
+            }, { 
+                day: 22, 
+                image: "22.jpg", 
+                text: "Quand est-ce qu'on mange des crêpes ? J'ai envie de manger des crêpes pas toi ?" 
+            }, { 
+                day: 23, 
+                image: "23.jpg", 
+                text: "Allez on se prépare pour demain j'espère que tu m'a fait un petit cadeau hihihi" 
+            }, { 
+                day: 24, 
+                image: "24.jpg", 
+                text: "C'est Noël !!!!! J'espère que tu as bien aimé ce petit calendrier de l'Avent original !" 
+            },
         ];
 
-        /* --- LOGIQUE AUTOMATIQUE --- */
-        // Remplissage auto des jours vides pour l'exemple (jusqu'à 24)
-        for (let i = 4; i <= 24; i++) {
-            surprises.push({ day: i, image: "https://via.placeholder.com/300?text=Surprise", text: `Message du jour ${i} !` });
-        }
+       
 
         const grid = document.getElementById('grid');
         const modal = document.getElementById('modal');
@@ -152,7 +236,7 @@
             } else {
                 door.classList.add('locked');
                 door.innerHTML += ' 🔒';
-                door.onclick = () => alert("Patience... on n'y est pas encore !");
+                door.onclick = () => alert("Grosse tricheuse ! T'as le droit que aux cases passées");
             }
             grid.appendChild(door);
         });
@@ -178,3 +262,4 @@
     </script>
 </body>
 </html>
+
