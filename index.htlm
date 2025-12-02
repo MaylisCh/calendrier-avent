@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Calendrier de l'Avent</title>
+    <style>
+        /* --- 1. LE STYLE (CSS) --- */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #2c3e50; /* Bleu nuit */
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #f1c40f; /* Or */
+            margin-bottom: 30px;
+            font-size: 3em;
+            text-shadow: 2px 2px 4px #000;
+        }
+
+        /* La grille des jours */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Les cases (Portes) */
+        .door {
+            background-color: #c0392b; /* Rouge Noël */
+            border: 2px solid #e74c3c;
+            border-radius: 8px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.3s;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        .door:hover {
+            transform: scale(1.05);
+            background-color: #d35400;
+        }
+
+        /* Style pour une case ouverte */
+        .door.opened {
+            background-color: #27ae60; /* Vert */
+            opacity: 0.6;
+        }
+
+        /* Style pour une case future (verrouillée) */
+        .door.locked {
+            background-color: #7f8c8d; /* Gris */
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        /* --- LA FENÊTRE POP-UP (MODALE) --- */
+        .modal {
+            display: none; /* Caché par défaut */
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px; right: 15px;
+            font-size: 25px;
+            cursor: pointer;
+            color: #aaa;
+        }
+
+        .modal-img {
+            max-width: 100%;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+
+        .modal-text {
+            font-size: 1.2em;
+            margin-top: 15px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🎄 Calendrier de l'Avent 🎄</h1>
+    
+    <div class="calendar-grid" id="grid">
+        </div>
+
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <script>
+        /* --- 2. LES DONNÉES (C'est ici que tu modifies tes surprises !) --- */
+        const surprises = [
+            { day: 1, type: 'text', content: "Bienvenue dans ce calendrier ! 🎅" },
+            { day: 2, type: 'image', content: "https://images.unsplash.com/photo-1543589077-47d81606c1bf?w=500", text: "Un petit chocolat chaud ?" },
+            { day: 3, type: 'text', content: "Citation du jour : Le bonheur est la seule chose qui se double si on le partage." },
+            { day: 4, type: 'image', content: "https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=500", text: "Souvenir de l'an dernier..." },
+            // ... Ajoute les jours jusqu'à 24 ici
+        ];
+
+        // Remplissage automatique pour l'exemple (Jours 5 à 24)
+        for (let i = 5; i <= 24; i++) {
+            surprises.push({ day: i, type: 'text', content: `Surprise du jour ${i} ! Patience...` });
+        }
+
+        /* --- 3. LA LOGIQUE (JavaScript) --- */
+        const grid = document.getElementById('grid');
+        const modal = document.getElementById('modal');
+        const modalBody = document.getElementById('modal-body');
+
+        // Date actuelle
+        const today = new Date();
+        const currentDay = today.getDate();
+        const currentMonth = today.getMonth(); // 11 = Décembre
+
+        // Mode Test : Décommenter la ligne ci-dessous pour simuler qu'on est le 24 décembre
+        // const currentDay = 24; const currentMonth = 11; 
+
+        surprises.forEach(item => {
+            const door = document.createElement('div');
+            door.classList.add('door');
+            door.innerText = item.day;
+
+            // Vérification de la date
+            // Si on n'est pas en décembre, tout est bloqué (sauf si tu changes la logique)
+            // Si on est en décembre, on compare le jour
+            const isDecember = currentMonth === 11; 
+            const isUnlocked = isDecember && item.day <= currentDay;
+
+            if (isUnlocked) {
+                door.onclick = () => openSurprise(item);
+            } else {
+                door.classList.add('locked');
+                door.onclick = () => alert("Chut ! C'est trop tôt ! 🤫");
+                // Optionnel : ajouter un petit cadenas visuel
+                door.innerHTML += ' 🔒';
+            }
+
+            grid.appendChild(door);
+        });
+
+        function openSurprise(item) {
+            let contentHtml = '';
+            
+            if (item.type === 'image') {
+                contentHtml = `<img src="${item.content}" class="modal-img">`;
+                if(item.text) contentHtml += `<p class="modal-text">${item.text}</p>`;
+            } else {
+                contentHtml = `<p class="modal-text">${item.content}</p>`;
+            }
+
+            modalBody.innerHTML = contentHtml;
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+
+        // Fermer si on clique en dehors de la fenêtre
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
